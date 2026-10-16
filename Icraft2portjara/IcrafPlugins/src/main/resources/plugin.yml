@@ -1,0 +1,3 @@
+name: IcraftPlugins
+version: '${version}'
+main: org.icraftplugins.icraft2plugins.IcraftPlugins

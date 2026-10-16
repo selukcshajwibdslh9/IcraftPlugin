@@ -1,0 +1,3 @@
+name: IcraftPlugins
+version: '1.0-SNAPSHOT'
+main: org.icraftplugins.icraft2plugins.IcraftPlugins

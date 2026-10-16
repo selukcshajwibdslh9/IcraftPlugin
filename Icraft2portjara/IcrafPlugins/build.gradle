@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.icraftplugins'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    // Зеркало CodeMC, где гарантированно есть старые версии Spigot API
+    maven {
+        url = 'https://repo.codemc.org/repository/maven-public/'
+    }
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    // Репозиторий для Vault API (JitPack)
+    maven {
+        url = 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+
+    // Подключаем ProtocolLib для компиляции пакетов (сервер должен иметь сам плагин ProtocolLib)
+}
+
+def targetJavaVersion = 8
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+    }
+}
+tasks.jar {
+    archiveFileName.set("IcraftPlugins.jar")
+}
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+tasks.withType(Jar) {
+    archiveBaseName.set("IcraftPlugins")
+    archiveClassifier.set("")
+    archiveVersion.set("1.0")
+}

@@ -1,0 +1,34 @@
+#чтобы работал ibuy требуеться еще докачать essentialsX и Vault
+
+
+ibuy:
+  gui_size: 27          # Размер инвентаря магазина (27 или 54)
+  chest_double: true    # Ставь true для красивой доставки двойным сундуком!
+  items:
+    kit_starter:
+      slot: 11
+      icon: CHEST
+      name: "&aСтартовый набор"
+      price: 500.0
+      lore_header: "&7Содержимое набора:"
+      items:
+        - material: DIAMOND_SWORD
+          amount: 1
+          name: "&bМеч новичка"
+        - material: COOKED_BEEF
+          amount: 32
+        - material: IRON_CHESTPLATE
+          amount: 1
+    kit_builder:
+      slot: 15
+      icon: BRICK
+      name: "&6Набор строителя"
+      price: 250.0
+      lore_header: "&7Содержимое набора:"
+      items:
+        - material: STONE
+          amount: 64
+        - material: WOOD
+          amount: 64
+        - material: GLASS
+          amount: 32
